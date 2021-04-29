@@ -1,0 +1,456 @@
+Microsoft Windows [Version 10.0.18363.1082]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\adore>mysql -u root -p
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database movies;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> create user 'movieuser'@'localhost' identified by 'movie1234';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> grant all privileges on movies.* to movieuser@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> flush privileges;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> set global time_zone = '+9:00';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> set time_zone = '+9:00';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> ^Z
+Bye
+
+C:\Users\adore>mysql -u movieuser -p movies
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE TABLE Actor (AID INT NOT NULL,
+    -> Aname VARCHAR(20) NOT NULL,
+    -> Agender VARCHAR(10),
+    -> Aage INT,
+    -> Aaddr VARCHAR(45),
+    -> Aphone VARCHAR(15),
+    -> PRIMARY KEY (AID));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE Movie (MID INT NOT NULL,
+    -> Title VARCHAR(45) NOT NULL,
+    -> Run_time VARCHAR(45),
+    -> Genre VARCHAR(45),
+    -> ReleaseDate DATE,
+    -> PRIMARY KEY (MID));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE Director (DID INT NOT NULL,
+    -> Dname VARCHAR(20) NOT NULL,
+    -> Dgender VARCHAR(10),
+    -> Dage INT,
+    -> Daddr VARCHAR(45),
+    -> Dphone VARCHAR(15),
+    -> AID INT,
+    -> MID INT NOT NULL,
+    -> PRIMARY KEY(DID),
+    -> FOREIGN KEY (AID) REFERENCES Actor (AID)
+    -> ON DELETE CASCADE
+    -> ON UPDATE CASCADE,
+    -> FOREIGN KEY (MID) REFERENCES Movie (MID)
+    -> ON DELETE CASCADE
+    -> ON UPDATE CASCADE);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE Producer (PID INT NOT NULL,
+    -> Pname VARCHAR(20) NOT NULL,
+    -> Pgender VARCHAR(10),
+    -> Page INT,
+    -> Paddr VARCHAR(45),
+    -> Pphone VARCHAR(15),
+    -> AID INT,
+    -> MID INT NOT NULL,
+    -> PRIMARY KEY (PID),
+    -> FOREIGN KEY (AID) REFERENCES Actor (AID)
+    -> ON DELETE CASCADE
+    -> ON UPDATE CASCADE,
+    -> FOREIGN KEY (MID) REFERENCES Movie (MID)
+    -> ON DELETE CASCADE
+    -> ON UPDATE CASCADE);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE Performs_in (AID INT,
+    -> MID INT,
+    -> FOREIGN KEY (AID) REFERENCES Actor (AID)
+    -> ON DELETE CASCADE
+    -> ON UPDATE CASCADE,
+    -> FOREIGN KEY (MID) REFERENCES Movie (MID)
+    -> ON DELETE CASCADE
+    -> ON UPDATE CASCADE);
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> CREATE TABLE Lead_role (AID INT,
+    -> MID INT NOT NULL,
+    -> FOREIGN KEY (AID) REFERENCES Actor (AID)
+    -> ON DELETE CASCADE
+    -> ON UPDATE CASCADE,
+    -> FOREIGN KEY (MID) REFERENCES Movie (MID)
+    -> ON DELETE CASCADE
+    -> ON UPDATE CASCADE);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO Actor VALUES ('1', 'Actor-1', 'female', '17', 'seoul, korea', '010-1111-1111');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Actor VALUES ('2', 'Actor-2', 'female', '36', 'incheon, korea', '010-2222-2222');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Actor VALUES ('3', 'Actor-3', 'male', '22', 'gimp, korea', '010-3333-3333');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Actor VALUES ('4', 'Actor-4', 'female', '61', 'goyang, korea', '010-4444-4444');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Actor VALUES ('5', 'Actor-5', 'male', '25', 'seoul, korea', '010-5555-5555');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Actor VALUES ('6', 'Actor-6', 'female', '21', 'busan, korea', '010-6666-6666');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Actor VALUES ('7', 'Actor-7', 'male', '54', 'incheon, korea', '010-7777-7777');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Actor VALUES ('8', 'Actor-8', 'male', '7', 'jeju, korea', '010-8888-8888');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Actor VALUES ('9', 'Actor-9', 'male', '15', 'seoul, korea', '010-9999-9999');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Actor VALUES ('10', 'Actor-10', 'female', '16', 'busan, korea', '010-1010-1010');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Movie VALUES ('1', 'Movie-1', '122 Minutes', 'fantasy', '2020-12-12');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Movie VALUES ('2', 'Movie-2', '165 Minutes', 'romantic', '2020-12-10');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Movie VALUES ('3', 'Movie-3', '130 Minutes', 'comedy', '2020-12-11');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Movie VALUES ('4', 'Movie-4', '124 Minutes', 'SF', '2020-12-25');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Movie VALUES ('5', 'Movie-5', '171 Minutes', 'fantasy', '2020-12-24');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Director VALUES ('1', 'Director-1', 'male', '33', 'seoul, korea', '010-0001-0001', NULL, '3');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Director VALUES ('2', 'Director-2', 'female', '37', 'seoul, korea', '010-0002-0002', NULL, '1');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Director VALUES ('3', 'Director-3', 'female', '29', 'inchoen, korea', '010-0003-0003', '6', '5');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Director VALUES ('4', 'Director-4', 'male', '31', 'inchoen, korea', '010-0004-0004', NULL, '4');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Director VALUES ('5', 'Director-5', 'male', '30', 'seoul, korea', '010-0005-0005', NULL, '2');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Producer VALUES ('1', 'Producer-1', 'female', '45', 'seoul, korea', '010-1000-1000', NULL, '1');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO Producer VALUES ('2', 'Producer-2', 'female', '39', 'seoul, korea', '010-2000-2000', NULL, '4');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Producer VALUES ('3', 'Producer-3', 'male', '34', 'busan, korea', '010-3000-3000', '1', '2');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Producer VALUES ('4', 'Producer-4', 'male', '51', 'jeju, korea', '010-4000-4000', NULL, '5');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Producer VALUES ('5', 'Producer-5', 'female', '34', 'seoul, korea', '010-5000-5000', NULL, '3');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('1', '1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('2', '1');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('3', '1');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('4', '3');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('5', '1');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('6', '5');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('7', '3');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('8', '2');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('9', '2');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('10', '5');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Lead_role VALUES ('1', '1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Lead_role VALUES ('3', '1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Lead_role VALUES ('5', '2');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Lead_role VALUES ('10', '3');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Lead_role VALUES ('4', '3');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Lead_role VALUES ('2', '5');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Lead_role VALUES ('6', '5');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> CREATE VIEW V1
+    -> AS
+    -> SELECT m.title, a.aname, a.agender
+    -> FROM Lead_role lr, Movie m, Actor a
+    -> WHERE (lr.AID = a.AID) AND (lr.MID = m.MID);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM V1;
++---------+----------+---------+
+| title   | aname    | agender |
++---------+----------+---------+
+| Movie-1 | Actor-1  | female  |
+| Movie-1 | Actor-3  | male    |
+| Movie-2 | Actor-5  | male    |
+| Movie-3 | Actor-10 | female  |
+| Movie-3 | Actor-4  | female  |
+| Movie-5 | Actor-2  | female  |
+| Movie-5 | Actor-6  | female  |
++---------+----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> CREATE VIEW V2
+    -> AS
+    -> SELECT m.title, d.dname, p.pname
+    -> FROM Movie m, Director d, Producer p
+    -> WHERE (d.MID = m.MID) AND (p.MID = m.MID);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM V2;
++---------+------------+------------+
+| title   | dname      | pname      |
++---------+------------+------------+
+| Movie-1 | Director-2 | Producer-1 |
+| Movie-2 | Director-5 | Producer-3 |
+| Movie-3 | Director-1 | Producer-5 |
+| Movie-4 | Director-4 | Producer-2 |
+| Movie-5 | Director-3 | Producer-4 |
++---------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT m.title, a.AID
+    -> FROM Movie as m, Actor as a, Performs_in as pi
+    -> WHERE (pi.AID = a.AID) AND (pi.MID = m.MID);
++---------+-----+
+| title   | AID |
++---------+-----+
+| Movie-1 |   1 |
+| Movie-1 |   2 |
+| Movie-1 |   3 |
+| Movie-3 |   4 |
+| Movie-1 |   5 |
+| Movie-5 |   6 |
+| Movie-3 |   7 |
+| Movie-2 |   8 |
+| Movie-2 |   9 |
+| Movie-5 |  10 |
++---------+-----+
+10 rows in set (0.01 sec)
+
+mysql> CREATE INDEX index_1 ON Performs_in (AID);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT m.title, a.AID
+    -> FROM Movie as m, Actor as a, Performs_in as pi
+    -> WHERE (pi.AID = a.AID) AND (pi.MID = m.MID);
++---------+-----+
+| title   | AID |
++---------+-----+
+| Movie-1 |   1 |
+| Movie-1 |   2 |
+| Movie-1 |   3 |
+| Movie-3 |   4 |
+| Movie-1 |   5 |
+| Movie-5 |   6 |
+| Movie-3 |   7 |
+| Movie-2 |   8 |
+| Movie-2 |   9 |
+| Movie-5 |  10 |
++---------+-----+
+10 rows in set (0.00 sec)
+
+mysql> ALTER TABLE Movie MODIFY ReleaseDate VARCHAR(45);
+Query OK, 5 rows affected (0.16 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> delimiter //
+mysql> create trigger Lead_role_trigger
+    -> before insert on Lead_role
+    -> for each row
+    -> begin
+    -> set @sum = (select count(*) from Lead_role where MID = NEW.MID);
+    -> if @sum > 1 then
+    -> SIGNAL SQLSTATE '45000'
+    -> SET MESSAGE_TEXT = 'Maximum';
+    -> end if;
+    -> end; //
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> delimiter ;
+
+mysql> SELECT * FROM Lead_role;
++------+-----+
+| AID  | MID |
++------+-----+
+|    1 |   1 |
+|    3 |   1 |
+|   10 |   3 |
+|    4 |   3 |
+|    6 |   5 |
+|    2 |   5 |
+|    5 |   2 |
++------+-----+
+7 rows in set (0.01 sec)
+
+mysql> INSERT INTO Lead_role VALUES ('9', '1');
+ERROR 1644 (45000): Maximum
+mysql> INSERT INTO Lead_role VALUES ('9', '4');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delimiter //
+mysql> create trigger Performs_in_AID_trigger
+    -> before insert on Performs_in
+    -> for each row
+    -> begin
+    -> set @sum_aid = (select count(*) from Performs_in where AID = NEW.AID);
+    -> if @sum_aid > 8 then
+    -> SIGNAL SQLSTATE '45000'
+    -> SET MESSAGE_TEXT = 'Maximum';
+    -> end if;
+    -> end; //
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> delimiter ;
+
+mysql> select * from Performs_in;
++------+------+
+| AID  | MID  |
++------+------+
+|    1 |    1 |
+|    2 |    1 |
+|    3 |    1 |
+|    4 |    3 |
+|    5 |    1 |
+|    6 |    5 |
+|    7 |    3 |
+|    8 |    2 |
+|    9 |    2 |
+|   10 |    5 |
++------+------+
+10 rows in set (0.01 sec)
+
+mysql> delimiter //
+mysql> create trigger Performs_in_MID_trigger
+    -> before insert on Performs_in
+    -> for each row
+    -> begin
+    -> set @sum_mid = (select count(*) from Performs_in where MID = NEW.MID);
+    -> if @sum_mid > 8 then
+    -> SIGNAL SQLSTATE '45000'
+    -> SET MESSAGE_TEXT = 'Maximum';
+    -> end if;
+    -> end; //
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> delimiter ;
+
+mysql> INSERT INTO Performs_in VALUES ('4', '1');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('6', '1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('7', '1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('8', '1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('9', '1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT count(AID) FROM Performs_in WHERE MID = 1;
++------------+
+| count(AID) |
++------------+
+|          9 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO Performs_in VALUES ('10', '1');
+ERROR 1644 (45000): Maximum
+
+C:\WINDOWS\system32>docker commit tomcat-server saved_project
+sha256:66d7e8fac24cf5ba2b9b34f86cffbe93d119b6b523b840660cff186bc367b2cc
+
+C:\WINDOWS\system32>docker tag saved_project idanbyi94/project_fin
+
+C:\WINDOWS\system32>docker push idanbyi94/project_fin
+The push refers to repository [docker.io/idanbyi94/project_fin]
+3f0ec0266c82: Pushed
+e4edb7863185: Mounted from idanbyi94/12181785_hyebeen
+aa794496f8e9: Mounted from idanbyi94/12181785_hyebeen
+7a694df0ad6c: Mounted from idanbyi94/12181785_hyebeen
+3fd9df553184: Mounted from idanbyi94/12181785_hyebeen
+805802706667: Mounted from idanbyi94/12181785_hyebeen
+latest: digest: sha256:23100e82772c1bdd815cb6ea61d6bb8c5fa4e9c7df1cbcee1a0b08eb9cc53a4d size: 1581
