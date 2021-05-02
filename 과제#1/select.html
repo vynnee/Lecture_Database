@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Select</title>
+</head>
+<body>
+	<form action = "/project1/SelectStudent" accept-charset="utf-8" name = "person_info" method = "get">
+		<fieldset style = "width:150">
+			<legend> Select </legend>
+				<select id = "search" name = "search">
+					<optgroup label = "Select">
+						<option value = "click">선택하세요</option> 
+						<option value = "studentnum">학번</option>
+						<option value = "name">이름</option>
+						<option value = "major">학과</option>
+						<option value = "studentgrade">학년</option>
+						<option value = "doublemajor">복수전공</option>
+						<option value = "admissiondate">입학일</option>
+						<option value = "email">이메일</option>
+					</optgroup>
+				</select>
+			<input type = "text" name = "textarea">
+			<input type = "submit" value = "검색"/>
+		</fieldset>
+	</form>
+</body>
+</html>

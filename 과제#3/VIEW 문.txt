@@ -1,0 +1,16 @@
+mysql> CREATE VIEW V1
+    -> AS
+    -> SELECT c.name, a.balance
+    -> FROM customer c, account a, a_c ac
+    -> WHERE (ac.acct_no = a.acct_no) AND (ac.ssn = c.ssn);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from v1;
++--------------+---------+
+| name         | balance |
++--------------+---------+
+| HYEBEEN SEO  |     100 |
+| MINSU KIM    |     100 |
+| GILDONG HONG |   10000 |
++--------------+---------+
+3 rows in set (0.01 sec)

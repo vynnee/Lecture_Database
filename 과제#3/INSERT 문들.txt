@@ -1,0 +1,57 @@
+
+mysql> INSERT INTO Bank VALUES ('123456789', 'bank', 'korea');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Bank_Branch VALUES ('incheon', '1', '123456789');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Account VALUES ('11', '10000', 'Deposit', '1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Loan VALUES ('111', '20000', 'Credit', '1');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Customer VALUES ('111111111', '01011111111', 'GILDONG HONG', 'Incheon, Korea');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO A_c VALUES ('11', '111111111');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO L_C VALUES ('111', '111111111');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Bank VALUES ('111222333', 'university', 'korea');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Bank_Branch VALUES ('incheon', '0328607114', '111222333');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Account VALUES ('032', '100', 'Deposit', '0328607114');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Loan VALUES ('860', '200', 'Credit', '0328607114');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Customer VALUES ('12181785', '01022222222', 'HYEBEEN SEO', 'Incheon, Korea');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO A_C VALUES ('032', '12181785');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO L_C VALUES ('860', '12181785');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Bank_Branch VALUES ('Seoul', '020000000', '111222333');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Account VALUES ('02', '100', 'Deposit', '020000000');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO Loan VALUES ('02', '200', 'Credit', '020000000');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO A_C VALUES ('02', '20202020');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO L_C VALUES ('02', '20202020');
+Query OK, 1 row affected (0.01 sec)
